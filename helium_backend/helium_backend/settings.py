@@ -76,7 +76,7 @@ WSGI_APPLICATION = 'helium_backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'helium',
+        'NAME': 'heliumapi',
         'USER': 'charles',
         'PASSWORD': 'Password1!',
         'HOST': 'localhost',

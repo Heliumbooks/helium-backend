@@ -1,13 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b9838dbf-fa0d-4abe-92b4-d0b40d6a290a" name="Default Changelist" comment="" />
+    <list default="true" id="b9838dbf-fa0d-4abe-92b4-d0b40d6a290a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/settings/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/settings/base.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/settings/local.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helium_backend/helium_backend/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/helium_backend/helium_backend/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helium_backend/helium_backend/wsgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/wsgi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helium_backend/manage.py" beforeDir="false" afterPath="$PROJECT_DIR$/manage.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/venv/bin/activate" beforeDir="false" afterPath="$PROJECT_DIR$/venv/bin/activate" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1dTgnDCp4eHStvQTVHMRLFw2m1n" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -16,6 +41,12 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/config" />
+    </key>
   </component>
   <component name="ServiceViewManager">
     <option name="viewStates">
@@ -41,5 +72,11 @@
       <updated>1592454661319</updated>
     </task>
     <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="3503" y="329" width="672" height="678" key="search.everywhere.popup" timestamp="1611900942075">
+      <screen x="2560" y="0" width="2560" height="1440" />
+    </state>
+    <state x="3503" y="329" width="672" height="678" key="search.everywhere.popup/1879.1440.1366.768/0.0.2560.1440/2560.0.2560.1440@2560.0.2560.1440" timestamp="1611900942075" />
   </component>
 </project>
