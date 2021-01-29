@@ -10,7 +10,7 @@ apipatterns = []
 urlpatterns += apipatterns
 
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIAROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns += [path('admin/', admin.site.urls)]
 else:
     urlpatterns += [path('management/', admin.site.urls)]

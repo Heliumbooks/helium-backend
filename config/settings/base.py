@@ -47,16 +47,26 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
-
+    'helium_backend.users.apps.UsersConfig',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
-MIDDLEWARE = []
+MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django_otp.middleware.OTPMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
 
 CORS_ORIGIN_WHITELIST = []
 
-ROOT_URLCONFIG = 'config.urls'
+ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
     {
@@ -114,7 +124,7 @@ STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
 
-MEDIA_ROOT = root('nimbus', 'media')
+MEDIA_ROOT = root('helium_backend', 'media')
 MEDIA_URL = '/media/'
 
 REST_FRAMEWORK = {
