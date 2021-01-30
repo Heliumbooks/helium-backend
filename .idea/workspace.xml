@@ -2,24 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b9838dbf-fa0d-4abe-92b4-d0b40d6a290a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/helium_backend/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/helium_backend/locations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/helium_backend/locations/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/helium_backend/locations/api.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/helium_backend/locations/api_urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/helium_backend/locations/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/helium_backend/locations/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/helium_backend/locations/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/helium_backend/locations/tests/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/helium_backend/orders/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/helium_backend/orders/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/helium_backend/orders/api.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/helium_backend/orders/api_urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/helium_backend/orders/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/helium_backend/orders/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/helium_backend/orders/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/helium_backend/orders/tests/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/helium_backend/customers/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/helium_backend/customers/admin.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/helium_backend/customers/api.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/helium_backend/customers/api_urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/helium_backend/customers/apps.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/helium_backend/customers/migrations/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/helium_backend/customers/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/helium_backend/customers/tests/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/settings/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/settings/base.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helium_backend/locations/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/helium_backend/locations/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helium_backend/locations/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/helium_backend/locations/apps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helium_backend/orders/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/helium_backend/orders/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helium_backend/orders/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/helium_backend/orders/apps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helium_backend/orders/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/helium_backend/orders/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helium_backend/users/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/helium_backend/users/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
