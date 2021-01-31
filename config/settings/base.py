@@ -47,10 +47,11 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
-    'helium_backend.users.apps.UsersConfig',
+    'helium_backend.books.apps.BooksConfig',
     'helium_backend.customers.apps.CustomersConfig',
     'helium_backend.locations.apps.LocationsConfig',
-    'helium_backend.orders.apps.OrdersConfig'
+    'helium_backend.orders.apps.OrdersConfig',
+    'helium_backend.users.apps.UsersConfig',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

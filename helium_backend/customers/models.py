@@ -17,7 +17,6 @@ class Customer(models.Model):
     referred_by_code = models.CharField(max_length=100, default='', blank=True, null=True)
 
     class Meta:
-        verbose_plural_name = "Customers"
         ordering = ('full_name',)
 
     def __str__(self):

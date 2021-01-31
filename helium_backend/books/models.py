@@ -15,6 +15,7 @@ class Author(models.Model):
     full_name = models.CharField(max_length=200, default='', null=True, blank=True)
     information = models.TextField(default='', null=True, blank=True)
     orders = models.IntegerField(default=0)
+    cost = models.FloatField(default=0, null=True, blank=True)
 
     class Meta:
         verbose_name_plural = "Authors"

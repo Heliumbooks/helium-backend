@@ -2,15 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b9838dbf-fa0d-4abe-92b4-d0b40d6a290a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/helium_backend/books/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/helium_backend/books/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/helium_backend/books/api.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/helium_backend/books/api_urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/helium_backend/books/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/helium_backend/books/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/helium_backend/books/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/helium_backend/books/tests/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/helium_backend/authentication/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/helium_backend/authentication/api.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/helium_backend/authentication/api_urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/helium_backend/authentication/apps.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/helium_backend/authentication/authentication.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/helium_backend/authentication/tests/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/settings/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/settings/base.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helium_backend/books/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/helium_backend/books/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helium_backend/customers/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/helium_backend/customers/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helium_backend/orders/api.py" beforeDir="false" afterPath="$PROJECT_DIR$/helium_backend/orders/api.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helium_backend/orders/api_urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/helium_backend/orders/api_urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helium_backend/orders/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/helium_backend/orders/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,6 +45,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/helium_backend/authentication" />
       <recent name="$PROJECT_DIR$/helium_backend/orders" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/config" />
