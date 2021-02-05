@@ -7,6 +7,7 @@ from datetime import datetime, date
 from helium_backend.users.models import User
 from helium_backend.customers.models import Customer
 from helium_backend.books.models import Book
+from helium_backend.locations.models import Address
 
 
 class Status(Enum):
@@ -28,6 +29,7 @@ class Order(models.Model):
     order_placed = models.DateTimeField(null=True, blank=True)
     drop_off_time = models.DateTimeField(null=True, blank=True)
     drop_off_location = models.TextField(default='', null=True, blank=True)
+    drop_off_address = models.ForeignKey(Address, on_delete=models.DO_NOTHING, null=True, blank=True)
     delivery_driver = models.ForeignKey(User, on_delete=models.DO_NOTHING,
                                         related_name='delivery_driver', null=True, blank=True)
     pick_up_driver = models.ForeignKey(User, on_delete=models.DO_NOTHING,
@@ -43,7 +45,7 @@ class Order(models.Model):
         verbose_name_plural = "Orders"
 
     def __str__(self):
-        return f"{self.customer.full_name} - {self.order_time.date()}"
+        return f"{self.customer.full_name} - {self.id}"
 
 
 class BookOrder(models.Model):
