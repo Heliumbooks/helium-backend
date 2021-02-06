@@ -36,6 +36,10 @@ class User(AbstractUser):
     username = None
     email = models.EmailField('email_address', max_length=255, unique=True)
     phone_number = models.CharField(max_length=20, default='', blank=True, null=True)
+    is_admin = models.BooleanField(default=False)
+    first_name = models.CharField(max_length=100, default='', blank=True, null=True)
+    last_name = models.CharField(max_length=100, default='', blank=True, null=True)
+    full_name = models.CharField(max_length=200, default='', blank=True, null=True)
     mobile_token = models.CharField(max_length=100, default='', blank=True, null=True)
 
     USERNAME_FIELD = 'email'

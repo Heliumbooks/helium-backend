@@ -2,20 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b9838dbf-fa0d-4abe-92b4-d0b40d6a290a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/helium_backend/users/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/helium_backend/users/api.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/helium_backend/users/api_urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/helium_backend/users/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/helium_backend/users/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/helium_backend/users/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/helium_backend/users/tests/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/settings/heroku.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/settings/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/settings/base.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/helium_backend/helium_backend/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/helium_backend/users/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/helium_backend/helium_backend/asgi.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/helium_backend/helium_backend/settings.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/helium_backend/helium_backend/urls.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/venv/bin/activate" beforeDir="false" afterPath="$PROJECT_DIR$/venv/bin/activate" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,6 +35,8 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/helium_backend/authentication" />
+      <recent name="$PROJECT_DIR$/helium_backend/orders" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/config" />
     </key>
@@ -75,6 +67,15 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
+    <state x="3364" y="332" width="466" height="395" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1612577189413">
+      <screen x="2560" y="0" width="2560" height="1440" />
+    </state>
+    <state x="1768" y="166" width="466" height="395" key="#com.intellij.fileTypes.FileTypeChooser/0.27.1366.741/1366.0.1280.720@1366.0.1280.720" timestamp="1612041940953" />
+    <state x="3364" y="332" key="#com.intellij.fileTypes.FileTypeChooser/1879.1440.1366.768/0.0.2560.1440/2560.0.2560.1440@2560.0.2560.1440" timestamp="1612577189413" />
+    <state x="3535" y="547" key="com.intellij.ide.util.TipDialog" timestamp="1612571111582">
+      <screen x="2560" y="0" width="2560" height="1440" />
+    </state>
+    <state x="3535" y="547" key="com.intellij.ide.util.TipDialog/1879.1440.1366.768/0.0.2560.1440/2560.0.2560.1440@2560.0.2560.1440" timestamp="1612571111582" />
     <state x="3503" y="329" width="672" height="678" key="search.everywhere.popup" timestamp="1611900942075">
       <screen x="2560" y="0" width="2560" height="1440" />
     </state>

@@ -5,9 +5,12 @@ from django.urls import path, include
 
 urlpatterns = []
 
-apipatterns = []
+apipatterns = [
+    path('api/v1/auth/', include('helium_backend.authentication.api_urls')),
+    path('api/v1/orders/', include('helium_backend.orders.api_urls')),
+]
 
-urlpatterns += apipatterns
+urlpatterns = apipatterns
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
