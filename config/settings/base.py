@@ -28,7 +28,7 @@ def root(*dirs):
     return path.join(base_dir, *dirs, '')
 
 
-SECRET_KEY = 'mf61nti*m@8&d-m2=k2f^3v)z2v#bpm9c(4wecegw-x!69_(2_'
+SECRET_KEY = get_env_variable('SECRET_KEY')
 
 DJANGO_APPS = [
     'django.contrib.admin',
@@ -121,8 +121,8 @@ USE_L10N = True
 USE_TZ = True
 
 STATIC_URL = "/static/"
-STATICFILES_DIRS = [root('nimbus', 'static')]
-STATIC_ROOT = root('nimbus', 'staticfiles')
+STATICFILES_DIRS = [root('helium_backend', 'static')]
+STATIC_ROOT = root('helium_backend', 'staticfiles')
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
