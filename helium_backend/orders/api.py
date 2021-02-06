@@ -4,6 +4,8 @@ from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 
 from django.utils import timezone
+from django.utils.timezone import make_aware
+from datetime import timedelta
 
 from helium_backend.orders.models import Order
 from helium_backend.orders.models import BookOrder
@@ -115,4 +117,70 @@ class OrderAddressSelection(APIView):
             return Response(status=status.HTTP_200_OK, data=order.id)
         except:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+class OrderPickUpTimeSelection(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def patch(self, request, pk):
+        try:
+            order = Order.objects.filter(pk=pk).first()
+        except:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+        current_time = timezone.now()
+        cutoff_date_time = current_time.replace(hour=16, minute=0, second=0)
+
+        if not request.data.get('pickUpTime') and not request.data.get('pickUpDate'):
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+        if request.data.get('pickUpDate') == current_time.date() \
+                and (request.data.get('pickUpDateTime') + timedelta(hours=6)) > cutoff_date_time:
+            error_message = {"error": "Time requested is after delivery cutoff time"}
+            return Response(status=status.HTTP_403_FORBIDDEN, data=error_message)
+
+        if request.data.get('asap'):
+            order.drop_off_deadline = timezone.now() + timedelta(days=2)
+            order.save()
+            return Response(status=status.HTTP_200_OK)
+
+        else:
+            order.drop_off_deadline = request.data.get('pickUpDateTime')
+            order.save()
+            return Response(status=status.HTTP_200_OK)
+
+
+class CompleteOrderPlacement(APIView):
+    permission_classes = (IsAuthenticated, )
+
+    def patch(self, request, pk):
+        current_time = timezone.now()
+
+        try:
+            order = Order.objects.filter(pk=pk).first()
+            book_orders = BookOrder.objects.filter(order=order)
+        except:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+        """
+        Need to add the processing of the stripe payment here
+        """
+        try:
+            order.payment_information_submitted = True
+            order.completed_by_customer = True
+            order.order_placed = current_time
+            order.save()
+        except:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            for item in book_orders:
+                item.status = "Order Placed"
+                item.order_placed = current_time
+                item.save()
+        except:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+        return Response(status=status.HTTP_200_OK)
+
 

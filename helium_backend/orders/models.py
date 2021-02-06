@@ -30,6 +30,7 @@ class Order(models.Model):
     drop_off_time = models.DateTimeField(null=True, blank=True)
     drop_off_location = models.TextField(default='', null=True, blank=True)
     drop_off_address = models.ForeignKey(Address, on_delete=models.DO_NOTHING, null=True, blank=True)
+    drop_off_deadline = models.DateTimeField(null=True, blank=True)
     delivery_driver = models.ForeignKey(User, on_delete=models.DO_NOTHING,
                                         related_name='delivery_driver', null=True, blank=True)
     pick_up_driver = models.ForeignKey(User, on_delete=models.DO_NOTHING,
@@ -40,6 +41,7 @@ class Order(models.Model):
     return_pick_up_time = models.DateTimeField(null=True, blank=True)
     returned_time = models.DateTimeField(null=True, blank=True)
     completed_by_customer = models.BooleanField(default=False)
+    payment_information_submitted = models.BooleanField(default=False, null=True, blank=True)
 
     class Meta:
         verbose_name_plural = "Orders"
@@ -56,7 +58,7 @@ class BookOrder(models.Model):
     status = models.CharField(max_length=100, null=True, blank=True, default='',
                               choices=[(status.value, status.name.title()) for status in Status])
     order_placed = models.DateTimeField(null=True, blank=True)
-    pick_up_deadline = models.DateTimeField(null=True, blank=True)
+    due_date = models.DateTimeField(null=True, blank=True)
     library_pick_up_time = models.DateTimeField(null=True, blank=True)
     delivered_time = models.DateTimeField(null=True,  blank=True)
     return_pick_up_time = models.DateTimeField(null=True, blank=True)
