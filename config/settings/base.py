@@ -28,7 +28,7 @@ def root(*dirs):
     return path.join(base_dir, *dirs, '')
 
 
-SECRET_KEY = get_env_variable('SECRET_KEY')
+SECRET_KEY = get_env_variable('mf61nti*m@8&d-m2=k2f^3v)z2v#bpm9c(4wecegw-x!69_(2_')
 
 DJANGO_APPS = [
     'django.contrib.admin',
