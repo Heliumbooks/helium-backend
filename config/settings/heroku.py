@@ -10,4 +10,4 @@ DEBUG = False
 MIDDLEWARE = MIDDLEWARE + ['whitenoise.middleware.WhiteNoiseMiddleware']
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'helium-django-backend.herokuapp.com', '.herokuapp.com']
+ALLOWED_HOSTS = ['*']
