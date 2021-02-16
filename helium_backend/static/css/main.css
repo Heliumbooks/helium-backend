@@ -1,0 +1,16 @@
+.border-gray {
+    border-color: #404040 !important;
+}
+
+.bg-dark {
+    background-color: #2A2E2D !important;
+}
+
+a, a:hover { 
+    color: inherit; 
+}
+
+.hover:hover {
+    background-color: #E5E5E5;
+    cursor: pointer;
+}

@@ -1,0 +1,126 @@
+
+  <nav class="navbar navbar-dark pt-3 navbar-vertical fixed-left navbar-expand-lg navbar-light bg-dark" id="sidenav-main">
+    <div class="container-fluid">
+      <!-- Toggler -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidenav-collapse-main" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <!-- Brand -->
+      <a class="navbar-brand pt-0 pb-0" href="/">
+        <img src="/static/images/logo.png" class="navbar-brand-img">
+      </a>
+      <!-- User -->
+      <ul class="nav align-items-center d-lg-none">
+        <li class="nav-item dropdown">
+          <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <div class="media align-items-center">
+              <!-- <span class="avatar avatar-sm rounded-circle">
+                <img alt="Image placeholder" src="/static/images/profile.png">
+              </span> -->
+            </div>
+          </a>
+          <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
+            <div class=" dropdown-header noti-title">
+              <h6 class="text-overflow m-0">Welcome!</h6>
+            </div>
+            <!-- <a href="./examples/profile.html" class="dropdown-item">
+              <i class="ni ni-single-02"></i>
+              <span>My profile</span>
+            </a>
+            <a href="./examples/profile.html" class="dropdown-item">
+              <i class="ni ni-settings-gear-65"></i>
+              <span>Settings</span>
+            </a>
+            <a href="./examples/profile.html" class="dropdown-item">
+              <i class="ni ni-calendar-grid-58"></i>
+              <span>Activity</span>
+            </a>
+            <a href="./examples/profile.html" class="dropdown-item">
+              <i class="ni ni-support-16"></i>
+              <span>Support</span>
+            </a> -->
+            <div class="dropdown-divider"></div>
+            <a href="{% url 'logout' %}" class="dropdown-item">
+              <i class="ni ni-user-run"></i>
+              <span>Logout</span>
+            </a>
+          </div>
+        </li>
+      </ul>
+      <!-- Collapse -->
+      <div class="collapse navbar-collapse bg-dark" id="sidenav-collapse-main">
+        <!-- Collapse header -->
+        <div class="navbar-collapse-header d-lg-none  text-white">
+          <div class="row">
+            <div class="col-6 collapse-brand">
+              <a href="./index.html">
+                <img src="/static/images/logo.png">
+              </a>
+            </div>
+            <div class="col-6 collapse-close">
+              <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#sidenav-collapse-main" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle sidenav">
+                <span></span>
+                <span></span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Form -->
+        <!-- <form class="mt-4 mb-3 d-md-none">
+          <div class="input-group input-group-rounded input-group-merge">
+            <input type="search" class="form-control form-control-rounded form-control-prepended" placeholder="Search" aria-label="Search">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <span class="fa fa-search"></span>
+              </div>
+            </div>
+          </div>
+        </form> -->
+        <!-- Navigation -->
+        <ul class="navbar-nav">
+          <div style="background-color: #545454;">
+            <a class="nav-link text-white pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <div class="media align-items-center">
+                <span class="avatar avatar-nav rounded-circle">
+                  <img alt="Image placeholder" src="/static/images/profile.png">
+                </span>
+                <div class="media-body ml-2 d-lg-block">
+                  <span class="mb-0 text-sm font-weight-light font-italic" style="z-index: 10;">
+                    {{ user.first_name }} {{ user.last_name }}
+                  </span>
+                </div>
+              </div>
+            </a>
+          </div>
+          <li class="nav-item {% if request.path == '/' %}active{% endif %} border-bottom border-gray">
+            <a class="nav-link {% if request.path == '/' %}active{% endif %} font-weight-light " href="/">
+              <i class="fas fa-home"></i>Dashboard
+            </a>
+          </li>
+          <li class="nav-item {% if 'property-groups' in request.path %}active{% endif %} border-bottom border-gray">
+            <a class="nav-link {% if 'property-groups' in request.path %}active{% endif %} font-weight-light " href="/property-groups">
+              <i class="fas fa-city"></i>Property Groups
+            </a>
+          </li>
+          <!-- {% if user.can_access_hr %}
+          <li class="nav-item {% if 'console' in request.path %}active{% endif %}">
+            <a class="nav-link {% if 'console' in request.path %}active{% endif %} font-weight-light " href="/console">
+              <i class="fas fa-users"></i> Human Resources
+            </a>
+          </li>
+          {% endif %}
+          {% if user.can_access_tech %}
+          <li class="nav-item {% if 'tech' in request.path %}active{% endif %}">
+            <a class="nav-link {% if 'tech' in request.path %}active{% endif %} font-weight-light " href="/tech">
+              <i class="fas fa-laptop-code"></i> Tech
+            </a>
+          </li>
+          {% endif %} -->
+          <li class="nav-item border-bottom border-gray">
+            <a class="nav-link " href="https://nimbuspms.com">
+              <i class="fas fa-chevron-left"></i> Back to 4.1
+            </a>
+          </li>
+      </div>
+    </div>
+  </nav>

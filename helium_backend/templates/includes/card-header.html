@@ -1,0 +1,41 @@
+
+<div class="card-header bg-white border-0">
+    <div class="row align-items-center">
+      {% if back_chevron_url %}
+        {% if back_chevron_pk %}
+        <div class="col-1">
+          <a href="{% url back_chevron_url pk=back_chevron_pk %}"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+        </div>
+        {% else %}
+          <div class="col-1">
+            <a href="{% url back_chevron_url %}"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+          </div>
+        {% endif %}
+      {% endif %}
+      <div class="col-8">
+        <h3 class="mb-0">{{ page_name }}s</h3>
+      </div>
+      {% if filter_form_action %}
+        <div class="col-4 text-right">
+          <a class="btn btn-sm btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Filters</a>
+        </div>
+      {% endif %}
+    </div>                
+
+    {% if filter_form_action %}
+      <form method="get" action="{% url filter_form_action %}" class="collapse mt-3 border-top" id="collapseExample">
+          
+              <div class="row pt-3">
+                  <div class="col-lg-12">
+                      <div class="form-group">
+                          <label class="h5 text-uppercase" for="name">{{ page_name }} Name</label>
+                          <input type="text" value="{{name}}" name="name" id="name" class="form-control" />
+                      </div>
+                  </div>
+                  <div class="col-lg-3">
+                      <button class="btn btn-primary" type="submit">Apply Filters</button>
+                  </div>
+              </div>
+      </form>
+    {% endif %}
+</div>

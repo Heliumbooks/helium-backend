@@ -83,5 +83,5 @@ if [ -n "${BASH-}" ] || [ -n "${ZSH_VERSION-}" ] ; then
     hash -r 2>/dev/null
 fi
 
-export DJANGO_SETTINGS_MODULE=config.settings.live
+export DJANGO_SETTINGS_MODULE=config.settings.local
 export SECRET_KEY="mf61nti*m@8&d-m2=k2f^3v)z2v#bpm9c(4wecegw-x!69_(2_"
