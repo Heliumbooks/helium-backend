@@ -133,5 +133,3 @@ Pipfile
 Pipfile.lock
 entrypoint.prod.sh
 supervisord.conf
-
-staticfiles/
