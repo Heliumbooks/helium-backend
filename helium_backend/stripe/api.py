@@ -59,9 +59,54 @@ class ProcessInvoice(APIView):
         client = StripeClient.objects.first()
         stripe.api_key = client.api_key
 
-        items = stripe.Product.list(limit=10)
+        # Set the payment method
+        payment_method = stripe.PaymentMethod.create(
+            type="card",
+            card={
+                "number": request.data.get('cardNumber'),
+                "exp_month": request.data.get('expirationMonth'),
+                "exp_year": request.data.get('expirationYear'),
+                "cvc": request.data.get('cvc')
+            }
+        )
+        #
+        # # Checks to see if customer exists, if not, creates it
+        # customer_data = stripe.Customer.list(email=request.data.get('email')).data
+        # if len(customer_data) == 0:
+        #     customer = stripe.Customer.create(
+        #         email=request.data.get('email'),
+        #         payment_method=payment_method.get('id'),
+        #     )
+        #
+        # else:
+        #     customer = customer_data[0]
+        #
+        # # Create set up intent
+        # setup_intent = stripe.SetupIntent.create(
+        #     payment_method_types=["card"],
+        #     payment_method=payment_method.get('id'),
+        #     customer=customer.get('id')
+        # )
+        # print(setup_intent)
+        # confirm_setup = stripe.SetupIntent.confirm(
+        #     setup_intent.get('id'),
+        #     payment_method=payment_method.get('id')
+        # )
+        # print(confirm_setup)
+        # customer_data = stripe.Customer.list(email=request.data.get('email')).data
+        # customer = customer_data[0]
+        customer_data = stripe.Customer.list(email=request.data.get('email')).data
+        customer = customer_data[0]
+        intent = stripe.PaymentIntent.create(
+            amount=5000,
+            currency="usd",
+            confirm=True,
+            customer=customer,
+            payment_method=payment_method
+        )
+        print(intent)
 
-        return Response(status=status.HTTP_200_OK, data=items)
+        return Response(status=status.HTTP_200_OK, data=customer)
 
 
 class TestPayment(APIView):
