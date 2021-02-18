@@ -35,7 +35,6 @@ class OrderCreate(APIView):
                 last_name=user.last_name,
                 user=user,
             )
-            print(customer)
 
             order = Order.objects.create(
                 customer=customer,

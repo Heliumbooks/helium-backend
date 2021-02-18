@@ -1,0 +1,109 @@
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.views import APIView
+import stripe
+
+from helium_backend.stripe.models import StripeClient
+
+
+class CreatePayment(APIView):
+    def post(self, request):
+        client = StripeClient.objects.first()
+
+        stripe.api_key = client.api_key
+
+        payment_method = stripe.PaymentMethod.create(
+            type="card",
+            card={
+                "number": request.data.get('cardNumber'),
+                "exp_month": request.data.get('expirationMonth'),
+                "exp_year": request.data.get('expirationYear'),
+                "cvc": request.data.get('cvc')
+            }
+        )
+
+        customer_data = stripe.Customer.list(email=request.data.get('email')).data
+
+        message = ""
+        if len(customer_data) == 0:
+            customer = stripe.Customer.create(
+                email=request.data.get('email'),
+                payment_method=payment_method.get('id')
+            )
+        else:
+            customer = customer_data[0]
+            message = "Customer already existed"
+
+        intent = stripe.PaymentIntent.create(
+            customer=customer,
+            payment_method=payment_method.get('id'),
+            currency='usd',
+            amount=300,
+            confirm=True
+        )
+
+        response = {
+            'message': 'Success',
+            'data': {
+                "customer_id": customer.id,
+                "extra_message": message,
+                "intent": intent.get('id')
+            }
+        }
+
+        return Response(status=status.HTTP_200_OK, data=response)
+
+
+class ProcessInvoice(APIView):
+    def post(self, request):
+        client = StripeClient.objects.first()
+        stripe.api_key = client.api_key
+
+        items = stripe.Product.list(limit=10)
+
+        return Response(status=status.HTTP_200_OK, data=items)
+
+
+class TestPayment(APIView):
+
+    def post(self, request):
+        client = StripeClient.objects.first()
+
+        stripe.api_key = client.api_key
+        test_payment_intent = stripe.PaymentIntent.create(
+            amount=100,
+            currency='usd',
+            payment_method_types=['card'],
+            receipt_email='ctcb57@gmail.com'
+        )
+
+        return Response(status=status.HTTP_200_OK, data=test_payment_intent)
+
+
+class SaveStripeInfo(APIView):
+
+    def post(self, request):
+        data = request.data
+        email = data['email']
+        payment_method_id = data['payment_method_id']
+        extra_message = ''
+
+        customer_data = stripe.Customer.list(email=email).data
+
+        if len(customer_data) == 0:
+            customer = stripe.Customer.create(
+                email=email,
+                payment_method=payment_method_id
+            )
+        else:
+            customer = customer_data[0]
+            extra_message = "Customer already existed"
+
+        response = {
+            'message': 'Success',
+            'data': {
+                "customer_id": customer.id,
+                "extra_message": extra_message
+            }
+        }
+        return Response(status=status.HTTP_200_OK, data=response)
