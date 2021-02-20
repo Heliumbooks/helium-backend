@@ -48,3 +48,15 @@ class StripeInvoiceItem(models.Model):
     description = models.TextField(default='', null=True, blank=True)
     stripe_invoice = models.ForeignKey(StripeInvoice, on_delete=models.DO_NOTHING, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+class StripeSetupIntent(models.Model):
+    stripe_customer = models.ForeignKey(StripeCustomer, on_delete=models.DO_NOTHING, null=True, blank=True)
+    stripe_setup_intent_id = models.CharField(max_length=200, default='', null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name_plural = "Stripe Intents"
+
+    def __str__(self):
+        return f"{self.stripe_customer.customer.first_name} {self.stripe_customer.customer.last_name} - {self.created_at}"

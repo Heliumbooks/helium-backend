@@ -4,6 +4,7 @@ from rest_framework.views import APIView
 import stripe
 
 from helium_backend.stripe.models import StripeClient
+from helium_backend.stripe.models import StripeSetupIntent
 
 
 class CreatePayment(APIView):
@@ -152,3 +153,42 @@ class SaveStripeInfo(APIView):
             }
         }
         return Response(status=status.HTTP_200_OK, data=response)
+
+
+class CreateSetupIntent(APIView):
+
+    def post(self, request):
+        data = request.data
+        email = data['email']
+
+        message = ''
+        customer_data = stripe.Customer.list(email=email).data
+
+        if len(customer_data) == 0:
+            customer = stripe.Customer.create(
+                email=email
+            )
+            message = "Customer created"
+        else:
+            customer = customer_data[0]
+            message = "Customer already existed"
+
+
+        try:
+            intent = stripe.SetupIntent.create(
+                payment_method_types=["card"],
+                customer=customer.get('id')
+            )
+            StripeSetupIntent.objects.create(
+                stripe_customer=customer,
+                stripe_setup_intent_id=intent.get('id')
+            )
+            message = "Setup intent created successfully"
+            return Response(status=status.HTTP_201_CREATED, data={
+                "message": message
+            })
+        except:
+            message = "Processing Failed"
+            return Response(status=status.HTTP_400_BAD_REQUEST, data={
+                "message": message
+            })
