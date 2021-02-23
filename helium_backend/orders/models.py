@@ -13,6 +13,7 @@ from helium_backend.locations.models import Address
 class Status(Enum):
     incomplete = "Incomplete"
     placed = "Order Placed"
+    awaiting_library_assignment = "Awaiting Library Assignment"
     awaiting_library_pick_up = "Awaiting Library Pick Up"
     awaiting_delivery = "Awaiting Delivery"
     awaiting_customer_pick_up = "Awaiting Customer Pick Up"

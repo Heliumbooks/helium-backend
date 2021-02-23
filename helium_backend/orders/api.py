@@ -212,11 +212,26 @@ class PendingOrdersList(APIView):
 class BookOrdersByOrderId(APIView):
     def get(self, request, pk):
         data = {"order_id": pk}
-        book_orders = BookOrder.objects.filter(order_id=pk).values('id', 'title', 'author', 'order_placed')
+        book_orders = BookOrder.objects.filter(order_id=pk).values('id', 'title', 'author', 'order_placed')\
+            .order_by('id')
         data['books'] = book_orders
-        return Response(book_orders)
+        return Response(data)
 
-    # def patch(self, request, pk):
+    def patch(self, request, pk):
+        order = Order.objects.filter(pk=pk).first()
+        book_orders = request.data.get("books")
+        for item in book_orders:
+            book_order = BookOrder.objects.filter(pk=item.get('bookOrderId')).first()
+            if not item.get('approved'):
+                book_order.status = "Denied"
+            else:
+                book_order.status = "Awaiting Library Assignment"
+            book_order.save()
+            print(book_order.status)
+
+        return Response(status=status.HTTP_200_OK, data=order.id)
+
+
 
 
 

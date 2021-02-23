@@ -51,6 +51,7 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     'helium_backend.books.apps.BooksConfig',
     'helium_backend.customers.apps.CustomersConfig',
+    'helium_backend.libraries.apps.LibrariesConfig',
     'helium_backend.locations.apps.LocationsConfig',
     'helium_backend.orders.apps.OrdersConfig',
     'helium_backend.stripe.apps.StripeConfig',
