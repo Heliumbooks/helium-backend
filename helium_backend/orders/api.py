@@ -14,6 +14,9 @@ from helium_backend.books.models import Author
 from helium_backend.customers.models import Customer
 from helium_backend.locations.models import Address, State, City
 
+from helium_backend.stripe.tasks import create_customer, create_payment_method
+from helium_backend.stripe.tasks import create_setup_intent
+
 
 class AllOrderList(APIView):
     def get(self, request):
@@ -34,6 +37,7 @@ class OrderCreate(APIView):
                 first_name=user.first_name,
                 last_name=user.last_name,
                 user=user,
+                emails=[request.data.get('email')]
             )
 
             order = Order.objects.create(
@@ -141,12 +145,12 @@ class OrderPickUpTimeSelection(APIView):
         if request.data.get('asap'):
             order.drop_off_deadline = timezone.now() + timedelta(days=2)
             order.save()
-            return Response(status=status.HTTP_200_OK)
+            return Response(status=status.HTTP_200_OK, data=order.id)
 
         else:
             order.drop_off_deadline = request.data.get('pickUpDateTime')
             order.save()
-            return Response(status=status.HTTP_200_OK)
+            return Response(status=status.HTTP_200_OK, data=order.id)
 
 
 class CompleteOrderPlacement(APIView):
@@ -159,18 +163,32 @@ class CompleteOrderPlacement(APIView):
             order = Order.objects.filter(pk=pk).first()
             book_orders = BookOrder.objects.filter(order=order)
         except:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+            return Response(status=status.HTTP_400_BAD_REQUEST, data="Didnt get order info")
+        try:
+            payment_method = create_payment_method(
+                request.data.get('cardNumber'),
+                request.data.get('expirationMonth'),
+                request.data.get('expirationYear'),
+                request.data.get('cvc')
+            )
+            print(payment_method)
+            helium_stripe_customer = create_customer(
+                request.data.get('email'),
+                payment_method.get('id')
+            )
+            print(helium_stripe_customer)
+            create_setup_intent(helium_stripe_customer)
+        except:
+            return Response(status=status.HTTP_400_BAD_REQUEST, data="Failed payment spot")
 
-        """
-        Need to add the processing of the stripe payment here
-        """
+
         try:
             order.payment_information_submitted = True
             order.completed_by_customer = True
             order.order_placed = current_time
             order.save()
         except:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+            return Response(status=status.HTTP_400_BAD_REQUEST, data="didnt save order info")
 
         try:
             for item in book_orders:
@@ -178,7 +196,7 @@ class CompleteOrderPlacement(APIView):
                 item.order_placed = current_time
                 item.save()
         except:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+            return Response(status=status.HTTP_400_BAD_REQUEST, data="didnt save to book orders")
 
         return Response(status=status.HTTP_200_OK)
 

@@ -173,7 +173,6 @@ class CreateSetupIntent(APIView):
             customer = customer_data[0]
             message = "Customer already existed"
 
-
         try:
             intent = stripe.SetupIntent.create(
                 payment_method_types=["card"],
