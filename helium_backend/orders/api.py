@@ -181,7 +181,6 @@ class CompleteOrderPlacement(APIView):
         except:
             return Response(status=status.HTTP_400_BAD_REQUEST, data="Failed payment spot")
 
-
         try:
             order.payment_information_submitted = True
             order.completed_by_customer = True
@@ -199,5 +198,27 @@ class CompleteOrderPlacement(APIView):
             return Response(status=status.HTTP_400_BAD_REQUEST, data="didnt save to book orders")
 
         return Response(status=status.HTTP_200_OK)
+
+
+class PendingOrdersList(APIView):
+    def get(self, request):
+        current_time = timezone.now()
+        orders = Order.objects.filter(payment_information_submitted=True, completed_by_customer=True,
+                                      order_placed__lte=current_time)\
+            .values('id', 'customer__full_name', 'order_placed', 'drop_off_deadline').order_by('drop_off_deadline')
+        return Response(orders)
+
+
+class BookOrdersByOrderId(APIView):
+    def get(self, request, pk):
+        data = {"order_id": pk}
+        book_orders = BookOrder.objects.filter(order_id=pk).values('id', 'title', 'author', 'order_placed')
+        data['books'] = book_orders
+        return Response(book_orders)
+
+    # def patch(self, request, pk):
+
+
+
 
 
