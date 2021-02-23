@@ -67,7 +67,8 @@ def create_setup_intent(customer_id):
         )
         StripeSetupIntent.objects.create(
             stripe_customer=helium_stripe_customer,
-            stripe_setup_intent_id=intent.get('id')
+            stripe_setup_intent_id=intent.get('id'),
+            stripe_client_secret=intent.get('client_secret')
         )
     except:
         StripeSetupIntent.objects.create(
