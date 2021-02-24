@@ -204,7 +204,7 @@ class PendingOrdersList(APIView):
     def get(self, request):
         current_time = timezone.now()
         orders = Order.objects.filter(payment_information_submitted=True, completed_by_customer=True,
-                                      order_placed__lte=current_time)\
+                                      order_placed__lte=current_time, confirmed=False)\
             .values('id', 'customer__full_name', 'order_placed', 'drop_off_deadline').order_by('drop_off_deadline')
         return Response(orders)
 

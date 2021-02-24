@@ -43,6 +43,7 @@ class Order(models.Model):
     returned_time = models.DateTimeField(null=True, blank=True)
     completed_by_customer = models.BooleanField(default=False)
     payment_information_submitted = models.BooleanField(default=False, null=True, blank=True)
+    confirmed = models.BooleanField(default=False)
 
     class Meta:
         verbose_name_plural = "Orders"
