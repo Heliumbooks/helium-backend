@@ -7,4 +7,5 @@ from helium_backend.libraries.models import Library
 
 class LibrariesList(APIView):
     def get(self, request):
-        libraries = Library.objects.all()
+        libraries = Library.objects.filter(active=True).values('id', 'name').order_by('name')
+        return Response(libraries)
