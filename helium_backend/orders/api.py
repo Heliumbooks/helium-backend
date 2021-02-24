@@ -13,6 +13,7 @@ from helium_backend.books.models import Book
 from helium_backend.books.models import Author
 from helium_backend.customers.models import Customer
 from helium_backend.locations.models import Address, State, City
+from helium_backend.libraries.models import Library
 
 from helium_backend.stripe.tasks import create_customer, create_payment_method
 from helium_backend.stripe.tasks import create_setup_intent
@@ -230,6 +231,31 @@ class BookOrdersByOrderId(APIView):
             print(book_order.status)
 
         return Response(status=status.HTTP_200_OK, data=order.id)
+
+
+class UpdateBookOrderStatus(APIView):
+    def patch(self, request, pk):
+        book_order = BookOrder.objects.filter(pk=pk).first()
+        if request.data.get('approved'):
+            book_order.status = "Awaiting Library Assignment"
+        else:
+            book_order.status = "Denied"
+        book_order.save()
+
+        return Response(status=status.HTTP_200_OK)
+
+
+class UpdateBookOrderLibraryAssignment(APIView):
+    def patch(self, request, pk):
+        book_order = BookOrder.objects.filter(pk=pk).first()
+        try:
+            library = Library.objects.filter(pk=request.data.get('libraryId')).first()
+            book_order.pick_up_library = library
+            book_order.save()
+            return Response(status=status.HTTP_200_OK)
+        except:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
 
 
 

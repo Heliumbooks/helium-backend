@@ -8,6 +8,7 @@ from helium_backend.users.models import User
 from helium_backend.customers.models import Customer
 from helium_backend.books.models import Book
 from helium_backend.locations.models import Address
+from helium_backend.libraries.models import Library
 
 
 class Status(Enum):
@@ -61,6 +62,10 @@ class BookOrder(models.Model):
                               choices=[(status.value, status.name.title()) for status in Status])
     order_placed = models.DateTimeField(null=True, blank=True)
     due_date = models.DateTimeField(null=True, blank=True)
+    pick_up_library = models.ForeignKey(Library, on_delete=models.DO_NOTHING, related_name='pick_up_library',
+                                        null=True, blank=True)
+    drop_off_library = models.ForeignKey(Library, on_delete=models.DO_NOTHING, related_name='drop_off_library',
+                                         null=True, blank=True)
     library_pick_up_time = models.DateTimeField(null=True, blank=True)
     delivered_time = models.DateTimeField(null=True,  blank=True)
     return_pick_up_time = models.DateTimeField(null=True, blank=True)
