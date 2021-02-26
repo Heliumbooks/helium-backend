@@ -51,6 +51,7 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     'helium_backend.books.apps.BooksConfig',
     'helium_backend.customers.apps.CustomersConfig',
+    'helium_backend.libraries.apps.LibrariesConfig',
     'helium_backend.locations.apps.LocationsConfig',
     'helium_backend.orders.apps.OrdersConfig',
     'helium_backend.stripe.apps.StripeConfig',
@@ -71,7 +72,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ORIGIN_WHITELIST = ['https://localhost:3000']
+CORS_ORIGIN_WHITELIST = ['http://localhost:3000']
 
 ROOT_URLCONF = 'config.urls'
 

@@ -12,5 +12,8 @@ class UserLogin(ObtainAuthToken):
         return Response({
             'token': f'Bearer {token.key}',
             'id': user.pk,
-            'email': user.email
+            'email': user.email,
+            'is_admin': user.is_admin,
+            'first_name': user.first_name,
+            'last_name': user.last_name,
         })
