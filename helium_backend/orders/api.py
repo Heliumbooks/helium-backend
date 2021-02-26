@@ -8,7 +8,7 @@ from django.utils.timezone import make_aware
 from datetime import timedelta
 
 from helium_backend.orders.models import Order
-from helium_backend.orders.models import BookOrder
+from helium_backend.orders.models import BookOrder, Status
 from helium_backend.books.models import Book
 from helium_backend.books.models import Author
 from helium_backend.customers.models import Customer
@@ -214,7 +214,7 @@ class BookOrdersByOrderId(APIView):
     def get(self, request, pk):
         data = {"order_id": pk}
         book_orders = BookOrder.objects.filter(order_id=pk).values('id', 'title', 'author', 'order_placed', 'status',
-                                                                   'pick_up_library_id')\
+                                                                   'pick_up_library_id', 'due_date')\
             .order_by('id')
         data['books'] = book_orders
         return Response(data)
@@ -234,11 +234,21 @@ class BookOrdersByOrderId(APIView):
         return Response(status=status.HTTP_200_OK, data=order.id)
 
 
+class AssignedBookOrdersByOrderId(APIView):
+    def get(self, request, pk):
+        data = {"order_id": pk}
+        book_orders = BookOrder.objects.filter(order_id=pk, status=Status.awaiting_library_pick_up.value)\
+            .values('id', 'title', 'author', 'order_placed', 'status', 'pick_up_library_id', 'due_date') \
+            .order_by('id')
+        data['books'] = book_orders
+        return Response(data)
+
+
 class UpdateBookOrderStatus(APIView):
     def patch(self, request, pk):
         book_order = BookOrder.objects.filter(pk=pk).first()
         if request.data.get('approved'):
-            book_order.status = "Awaiting Library Assignment"
+            book_order.status = "Awaiting Library Pick Up"
         else:
             book_order.status = "Denied"
         book_order.save()
@@ -253,9 +263,31 @@ class UpdateBookOrderLibraryAssignment(APIView):
             library = Library.objects.filter(pk=request.data.get('libraryId')).first()
             book_order.pick_up_library = library
             book_order.save()
-            return Response(status=status.HTTP_200_OK)
         except:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+        return Response(status=status.HTTP_200_OK)
+
+
+class UpdateBookOrderDueDate(APIView):
+    def patch(self, request, pk):
+        book_order = BookOrder.objects.filter(pk=pk).first()
+        try:
+            book_order.due_date = request.data.get('dueDate')
+            book_order.save()
+        except:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        return Response(status=status.HTTP_200_OK)
+
+
+class ConfirmOrder(APIView):
+    def patch(self, request, pk):
+        order = Order.objects.filter(pk=pk).first()
+        try:
+            order.confirmed = True
+            order.save()
+        except:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        return Response(status=status.HTTP_200_OK)
 
 
 

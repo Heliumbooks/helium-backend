@@ -61,7 +61,7 @@ class BookOrder(models.Model):
     status = models.CharField(max_length=100, null=True, blank=True, default='',
                               choices=[(status.value, status.name.title()) for status in Status])
     order_placed = models.DateTimeField(null=True, blank=True)
-    due_date = models.DateTimeField(null=True, blank=True)
+    due_date = models.DateField(null=True, blank=True)
     pick_up_library = models.ForeignKey(Library, on_delete=models.DO_NOTHING, related_name='pick_up_library',
                                         null=True, blank=True)
     drop_off_library = models.ForeignKey(Library, on_delete=models.DO_NOTHING, related_name='drop_off_library',
