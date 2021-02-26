@@ -213,7 +213,8 @@ class PendingOrdersList(APIView):
 class BookOrdersByOrderId(APIView):
     def get(self, request, pk):
         data = {"order_id": pk}
-        book_orders = BookOrder.objects.filter(order_id=pk).values('id', 'title', 'author', 'order_placed')\
+        book_orders = BookOrder.objects.filter(order_id=pk).values('id', 'title', 'author', 'order_placed', 'status',
+                                                                   'pick_up_library_id')\
             .order_by('id')
         data['books'] = book_orders
         return Response(data)
