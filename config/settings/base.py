@@ -29,6 +29,7 @@ def root(*dirs):
 
 
 SECRET_KEY = get_env_variable('SECRET_KEY')
+FIELD_ENCRYPTION_KEY = get_env_variable('FIELD_ENCRYPTION_KEY')
 
 DJANGO_APPS = [
     'django.contrib.admin',
@@ -43,14 +44,17 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = [
     'corsheaders',
     'rest_framework',
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+    'encrypted_model_fields',
 ]
 
 LOCAL_APPS = [
     'helium_backend.books.apps.BooksConfig',
     'helium_backend.customers.apps.CustomersConfig',
+    'helium_backend.libraries.apps.LibrariesConfig',
     'helium_backend.locations.apps.LocationsConfig',
     'helium_backend.orders.apps.OrdersConfig',
+    'helium_backend.stripe.apps.StripeConfig',
     'helium_backend.users.apps.UsersConfig',
 ]
 
@@ -68,7 +72,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ORIGIN_WHITELIST = ['https://localhost:3000']
+CORS_ORIGIN_WHITELIST = ['http://localhost:3000']
 
 ROOT_URLCONF = 'config.urls'
 
@@ -137,3 +141,6 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     ]
 }
+
+STRIPE_PUBLISHABLE_KEY = 'pk_test_m8cU0zYfxEotRifJeK0F6AzF00rlEKXP0U'
+STRIPE_SECRET_KEY = 'sk_test_B8y4EWSJ7zrQWXmXWS5HWJ8Z00NdKOBLlF'

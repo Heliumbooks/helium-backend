@@ -8,11 +8,13 @@ from helium_backend.users.models import User
 from helium_backend.customers.models import Customer
 from helium_backend.books.models import Book
 from helium_backend.locations.models import Address
+from helium_backend.libraries.models import Library
 
 
 class Status(Enum):
     incomplete = "Incomplete"
     placed = "Order Placed"
+    awaiting_library_assignment = "Awaiting Library Assignment"
     awaiting_library_pick_up = "Awaiting Library Pick Up"
     awaiting_delivery = "Awaiting Delivery"
     awaiting_customer_pick_up = "Awaiting Customer Pick Up"
@@ -42,6 +44,7 @@ class Order(models.Model):
     returned_time = models.DateTimeField(null=True, blank=True)
     completed_by_customer = models.BooleanField(default=False)
     payment_information_submitted = models.BooleanField(default=False, null=True, blank=True)
+    confirmed = models.BooleanField(default=False)
 
     class Meta:
         verbose_name_plural = "Orders"
@@ -58,7 +61,11 @@ class BookOrder(models.Model):
     status = models.CharField(max_length=100, null=True, blank=True, default='',
                               choices=[(status.value, status.name.title()) for status in Status])
     order_placed = models.DateTimeField(null=True, blank=True)
-    due_date = models.DateTimeField(null=True, blank=True)
+    due_date = models.DateField(null=True, blank=True)
+    pick_up_library = models.ForeignKey(Library, on_delete=models.DO_NOTHING, related_name='pick_up_library',
+                                        null=True, blank=True)
+    drop_off_library = models.ForeignKey(Library, on_delete=models.DO_NOTHING, related_name='drop_off_library',
+                                         null=True, blank=True)
     library_pick_up_time = models.DateTimeField(null=True, blank=True)
     delivered_time = models.DateTimeField(null=True,  blank=True)
     return_pick_up_time = models.DateTimeField(null=True, blank=True)
