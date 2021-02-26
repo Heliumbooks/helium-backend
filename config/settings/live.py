@@ -14,7 +14,8 @@ DATABASES = {
 DEBUG = False
 
 CORS_ORIGIN_WHITELIST = [
-    'https://localhost:3000', 'https://127.0.0.1:3000', 'http://localhost:3000', 'http://127.0.0.1:3000'
+    'https://localhost:3000', 'https://127.0.0.1:3000', 'http://localhost:3000', 'http://127.0.0.1:3000',
+    "https://helium-frontend.herokuapp.com"
 ]
 
 ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'helium-django-backend.herokuapp.com']
