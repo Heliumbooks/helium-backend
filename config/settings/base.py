@@ -45,7 +45,6 @@ THIRD_PARTY_APPS = [
     'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',
-    'encrypted_model_fields',
 ]
 
 LOCAL_APPS = [
