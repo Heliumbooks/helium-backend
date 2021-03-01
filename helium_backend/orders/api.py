@@ -314,7 +314,8 @@ class PendingLibraryPickUpById(APIView):
             "additional_address": order.drop_off_address.additional_street_address,
             "city": order.drop_off_address.city.name,
             "zip_code": order.drop_off_address.zip_code,
-            "deadline": order.drop_off_deadline
+            "deadline": order.drop_off_deadline,
+            "dropoff_location": order.drop_off_location
         }
         book_orders = BookOrder.objects.filter(order=order, status=Status.awaiting_library_pick_up.value)\
             .values('id', 'title', 'author', 'status', 'pick_up_library__name', 'pick_up_library__address__street_address',
