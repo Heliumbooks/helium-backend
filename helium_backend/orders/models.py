@@ -25,6 +25,15 @@ class Status(Enum):
     lost = "Lost"
 
 
+class OrderStatus(Enum):
+    placed = "Placed"
+    confirmed = "Confirmed"
+    picked_up_library = "Picked Up From Library"
+    delivered_customer = "Delivered to Customer"
+    picked_up_customer = "Picked Up From Customer"
+    complete = "Complete"
+
+
 class Order(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.DO_NOTHING)
     order_initiated = models.DateTimeField(null=True, blank=True)
@@ -45,6 +54,8 @@ class Order(models.Model):
     completed_by_customer = models.BooleanField(default=False)
     payment_information_submitted = models.BooleanField(default=False, null=True, blank=True)
     confirmed = models.BooleanField(default=False)
+    status = models.CharField(max_length=100, null=True, blank=True, default='',
+                              choices=[(status.value, status.name.title()) for status in OrderStatus])
 
     class Meta:
         verbose_name_plural = "Orders"
