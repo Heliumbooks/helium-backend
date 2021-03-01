@@ -15,3 +15,17 @@ class Library(models.Model):
     def __str__(self):
         return f"{self.name}"
 
+
+class LibraryCard(models.Model):
+    name = models.CharField(max_length=200, default='', null=True, blank=True)
+    card_number = models.CharField(max_length=200, default='', null=True, blank=True)
+    pin = models.CharField(max_length=4, default='', null=True, blank=True)
+    balance = models.FloatField(default=0)
+
+    class Meta:
+        verbose_name_plural = "Library Cards"
+        ordering = ('name',)
+
+    def __str__(self):
+        return f"{self.name}"
+
