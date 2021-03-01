@@ -8,7 +8,7 @@ from django.utils.timezone import make_aware
 from datetime import timedelta
 
 from helium_backend.orders.models import Order
-from helium_backend.orders.models import BookOrder, Status
+from helium_backend.orders.models import BookOrder, Status, OrderStatus
 from helium_backend.books.models import Book
 from helium_backend.books.models import Author
 from helium_backend.customers.models import Customer
@@ -103,16 +103,19 @@ class OrderAddressSelection(APIView):
 
         """To Do: Write some code that calculates the longitude and latitude of the address using Google"""
 
-        address, address_created = Address.objects.get_or_create(
-            customer=user,
-            street_address=request.data.get('streetAddress'),
-            additional_street_address=request.data.get('additionalStreetAddress'),
-            city=city,
-            zip_code=request.data.get('zipCode'),
-            type="Delivery",
-            longitude=0,
-            latitude=0
-        )
+        try:
+            address = Address.objects.filter(user=user).first()
+        except:
+            address = Address.objects.create(
+                customer=user,
+                street_address=request.data.get('streetAddress'),
+                additional_street_address=request.data.get('additionalStreetAddress'),
+                city=city,
+                zip_code=request.data.get('zipCode'),
+                type="Delivery",
+                longitude=0,
+                latitude=0
+            )
 
         try:
             order.drop_off_location = request.data.get('dropOffLocation')
@@ -186,6 +189,7 @@ class CompleteOrderPlacement(APIView):
             order.payment_information_submitted = True
             order.completed_by_customer = True
             order.order_placed = current_time
+            order.status = "Placed"
             order.save()
         except:
             return Response(status=status.HTTP_400_BAD_REQUEST, data="didnt save order info")
@@ -284,10 +288,40 @@ class ConfirmOrder(APIView):
         order = Order.objects.filter(pk=pk).first()
         try:
             order.confirmed = True
+            order.status = "Confirmed"
             order.save()
         except:
             return Response(status=status.HTTP_400_BAD_REQUEST)
         return Response(status=status.HTTP_200_OK)
+
+
+class PendingLibraryPickUp(APIView):
+    def get(self, request):
+        orders = Order.objects.filter(confirmed=True, status=OrderStatus.confirmed.value)\
+            .values('id', 'customer__first_name', 'customer__last_name', 'customer__full_name', 'drop_off_deadline',
+                    'drop_off_location', 'drop_off_address__street_address', 'drop_off_address__additional_street_address',
+                    'drop_off_address__city__name', 'drop_off_address__zip_code').order_by('drop_off_deadline')
+        return Response(orders)
+
+
+class PendingLibraryPickUpById(APIView):
+    def get(self, request, pk):
+        order = Order.objects.filter(pk=pk).first()
+        order_data = {
+            "id": order.id,
+            "customer_name": order.customer.full_name,
+            "street_address": order.drop_off_address.street_address,
+            "additional_address": order.drop_off_address.additional_street_address,
+            "city": order.drop_off_address.city.name,
+            "zip_code": order.drop_off_address.zip_code,
+            "deadline": order.drop_off_deadline
+        }
+        book_orders = BookOrder.objects.filter(order=order, status=Status.awaiting_library_pick_up.value)\
+            .values('id', 'title', 'author', 'status', 'pick_up_library__name', 'pick_up_library__address__street_address',
+                    'pick_up_library__address__additional_street_address', 'pick_up_library__address__city__name',
+                    'pick_up_library__address__zip_code').order_by('pick_up_library__address__street_address')
+        order_data['books'] = book_orders
+        return Response(order_data)
 
 
 
