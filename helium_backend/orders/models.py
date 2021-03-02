@@ -19,10 +19,20 @@ class Status(Enum):
     awaiting_delivery = "Awaiting Delivery"
     awaiting_customer_pick_up = "Awaiting Customer Pick Up"
     awaiting_library_return = "Awaiting Library Return"
+    delivered = "Delivered"
     completed = "Completed"
     denied = "Denied"
     overdue = "Overdue"
     lost = "Lost"
+
+
+class OrderStatus(Enum):
+    placed = "Placed"
+    confirmed = "Confirmed"
+    picked_up_library = "Picked Up From Library"
+    delivered_customer = "Delivered to Customer"
+    picked_up_customer = "Picked Up From Customer"
+    complete = "Complete"
 
 
 class Order(models.Model):
@@ -45,6 +55,8 @@ class Order(models.Model):
     completed_by_customer = models.BooleanField(default=False)
     payment_information_submitted = models.BooleanField(default=False, null=True, blank=True)
     confirmed = models.BooleanField(default=False)
+    status = models.CharField(max_length=100, null=True, blank=True, default='',
+                              choices=[(status.value, status.name.title()) for status in OrderStatus])
 
     class Meta:
         verbose_name_plural = "Orders"
