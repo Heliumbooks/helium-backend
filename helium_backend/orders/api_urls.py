@@ -14,6 +14,8 @@ from helium_backend.orders.api import AssignedBookOrdersByOrderId
 from helium_backend.orders.api import ConfirmOrder
 from helium_backend.orders.api import PendingLibraryPickUp
 from helium_backend.orders.api import PendingLibraryPickUpById
+from helium_backend.orders.api import MarkBookOrderLibraryPickUp
+from helium_backend.orders.api import MarkLibraryOrderDroppedOff
 
 urlpatterns = [
     path('all-orders/', AllOrderList.as_view()),
@@ -26,6 +28,8 @@ urlpatterns = [
     path('pending-orders/<int:pk>/confirm-order/', ConfirmOrder.as_view()),
     path('pending-library-pickup/', PendingLibraryPickUp.as_view()),
     path('pending-library-pickup/<int:pk>/', PendingLibraryPickUpById.as_view()),
+    path('pending-library-pickup/<int:pk>/book-picked-up/', MarkBookOrderLibraryPickUp.as_view()),
+    path('pending-library-pickup/<int:pk>/delivered/', MarkLibraryOrderDroppedOff.as_view()),
     path('create/', OrderCreate.as_view()),
     path('create/<int:pk>/address/', OrderAddressSelection.as_view()),
     path('create/<int:pk>/pickup-time/', OrderPickUpTimeSelection.as_view()),

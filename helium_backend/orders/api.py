@@ -158,7 +158,7 @@ class OrderPickUpTimeSelection(APIView):
 
 
 class CompleteOrderPlacement(APIView):
-    permission_classes = (IsAuthenticated, )
+    permission_classes = (IsAuthenticated,)
 
     def patch(self, request, pk):
         current_time = timezone.now()
@@ -209,7 +209,7 @@ class PendingOrdersList(APIView):
     def get(self, request):
         current_time = timezone.now()
         orders = Order.objects.filter(payment_information_submitted=True, completed_by_customer=True,
-                                      order_placed__lte=current_time, confirmed=False)\
+                                      order_placed__lte=current_time, confirmed=False) \
             .values('id', 'customer__full_name', 'order_placed', 'drop_off_deadline').order_by('drop_off_deadline')
         return Response(orders)
 
@@ -218,7 +218,7 @@ class BookOrdersByOrderId(APIView):
     def get(self, request, pk):
         data = {"order_id": pk}
         book_orders = BookOrder.objects.filter(order_id=pk).values('id', 'title', 'author', 'order_placed', 'status',
-                                                                   'pick_up_library_id', 'due_date')\
+                                                                   'pick_up_library_id', 'due_date') \
             .order_by('id')
         data['books'] = book_orders
         return Response(data)
@@ -241,7 +241,7 @@ class BookOrdersByOrderId(APIView):
 class AssignedBookOrdersByOrderId(APIView):
     def get(self, request, pk):
         data = {"order_id": pk}
-        book_orders = BookOrder.objects.filter(order_id=pk, status=Status.awaiting_library_pick_up.value)\
+        book_orders = BookOrder.objects.filter(order_id=pk, status=Status.awaiting_library_pick_up.value) \
             .values('id', 'title', 'author', 'order_placed', 'status', 'pick_up_library_id', 'due_date') \
             .order_by('id')
         data['books'] = book_orders
@@ -297,9 +297,12 @@ class ConfirmOrder(APIView):
 
 class PendingLibraryPickUp(APIView):
     def get(self, request):
-        orders = Order.objects.filter(confirmed=True, status=OrderStatus.confirmed.value)\
+        current_date = timezone.now().date()
+        orders = Order.objects.filter(confirmed=True, status=OrderStatus.confirmed.value,
+                                      drop_off_deadline__date__lte=current_date) \
             .values('id', 'customer__first_name', 'customer__last_name', 'customer__full_name', 'drop_off_deadline',
-                    'drop_off_location', 'drop_off_address__street_address', 'drop_off_address__additional_street_address',
+                    'drop_off_location', 'drop_off_address__street_address',
+                    'drop_off_address__additional_street_address',
                     'drop_off_address__city__name', 'drop_off_address__zip_code').order_by('drop_off_deadline')
         return Response(orders)
 
@@ -317,17 +320,63 @@ class PendingLibraryPickUpById(APIView):
             "deadline": order.drop_off_deadline,
             "dropoff_location": order.drop_off_location
         }
-        book_orders = BookOrder.objects.filter(order=order, status=Status.awaiting_library_pick_up.value)\
-            .values('id', 'title', 'author', 'status', 'pick_up_library__name', 'pick_up_library__address__street_address',
+        book_orders = BookOrder.objects.filter(order=order).exclude(status=Status.denied.value) \
+            .values('id', 'title', 'author', 'status', 'pick_up_library__name',
+                    'pick_up_library__address__street_address',
                     'pick_up_library__address__additional_street_address', 'pick_up_library__address__city__name',
                     'pick_up_library__address__zip_code').order_by('pick_up_library__address__street_address')
         order_data['books'] = book_orders
         return Response(order_data)
 
+    def patch(self, request, pk):
+        user = request.user
+        current_time = timezone.now()
+        order = Order.objects.filter(pk=pk).first()
+        try:
+            order.delivery_driver = user
+            order.library_pick_up_time = current_time
+            order.status = OrderStatus.picked_up_library.value
+            order.save()
+        except:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        return Response(status=status.HTTP_200_OK)
 
 
+class MarkBookOrderLibraryPickUp(APIView):
+    def patch(self, request, pk):
+        user = request.user
+        current_time = timezone.now()
+        book_order = BookOrder.objects.filter(pk=pk).first()
+        order = Order.objects.filter(pk=book_order.order.id).first()
+        try:
+            book_order.status = Status.awaiting_delivery.value
+            book_order.library_pick_up_time = current_time
+            book_order.save()
+        except:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            order.delivery_driver = user
+            order.save()
+        except:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        return Response(status=status.HTTP_200_OK)
 
 
+class MarkLibraryOrderDroppedOff(APIView):
+    def patch(self, request, pk):
+        current_time = timezone.now()
+        order = Order.objects.filter(pk=pk).first()
+        try:
+            order.delivered_time = current_time
+            order.status = OrderStatus.delivered_customer.value
+            order.save()
+        except:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
-
-
+        try:
+            BookOrder.objects.filter(order_id=pk).update(delivered_time=current_time,
+                                                         status=Status.delivered.value)
+        except:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        return Response(status=status.HTTP_200_OK)

@@ -19,6 +19,7 @@ class Status(Enum):
     awaiting_delivery = "Awaiting Delivery"
     awaiting_customer_pick_up = "Awaiting Customer Pick Up"
     awaiting_library_return = "Awaiting Library Return"
+    delivered = "Delivered"
     completed = "Completed"
     denied = "Denied"
     overdue = "Overdue"
