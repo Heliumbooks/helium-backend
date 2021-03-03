@@ -104,7 +104,7 @@ class OrderAddressSelection(APIView):
         """To Do: Write some code that calculates the longitude and latitude of the address using Google"""
 
         try:
-            address = Address.objects.filter(user=user).first()
+            address = Address.objects.filter(customer=user).first()
         except:
             address = Address.objects.create(
                 customer=user,
@@ -380,3 +380,16 @@ class MarkLibraryOrderDroppedOff(APIView):
         except:
             return Response(status=status.HTTP_400_BAD_REQUEST)
         return Response(status=status.HTTP_200_OK)
+
+
+class PendingCustomerDropOff(APIView):
+    def get(self, request):
+        user = request.user
+        orders = Order.objects.filter(status=OrderStatus.picked_up_library.value)
+        if not user.is_admin:
+            orders = orders.filter(delivery_driver=user)
+        orders = orders.values('id', 'library_pick_up_time', 'delivery_driver__first_name', 'delivery_driver__last_name',
+                    'delivery_driver__full_name', 'drop_off_address__street_address', 'drop_off_address__city__name',
+                    'drop_off_address__zip_code', 'customer__full_name').order_by('library_pick_up_time')
+        return Response(orders)
+
