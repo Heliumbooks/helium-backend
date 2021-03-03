@@ -13,7 +13,7 @@ from helium_backend.books.models import Book
 from helium_backend.books.models import Author
 from helium_backend.customers.models import Customer
 from helium_backend.locations.models import Address, State, City
-from helium_backend.libraries.models import Library
+from helium_backend.libraries.models import Library, LibraryCard
 
 from helium_backend.stripe.tasks import create_customer, create_payment_method
 from helium_backend.stripe.tasks import create_setup_intent
@@ -346,11 +346,17 @@ class MarkBookOrderLibraryPickUp(APIView):
     def patch(self, request, pk):
         user = request.user
         current_time = timezone.now()
+
+        if not request.data.get('library_card_id'):
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+        library_card = LibraryCard.objects.filter(pk=request.data.get('library_card_id')).first()
         book_order = BookOrder.objects.filter(pk=pk).first()
         order = Order.objects.filter(pk=book_order.order.id).first()
         try:
             book_order.status = Status.awaiting_delivery.value
             book_order.library_pick_up_time = current_time
+            book_order.library_card = library_card
             book_order.save()
         except:
             return Response(status=status.HTTP_400_BAD_REQUEST)
