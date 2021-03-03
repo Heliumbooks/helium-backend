@@ -21,6 +21,7 @@ class LibraryCard(models.Model):
     card_number = models.CharField(max_length=200, default='', null=True, blank=True)
     pin = models.CharField(max_length=4, default='', null=True, blank=True)
     balance = models.FloatField(default=0)
+    active = models.BooleanField(default=True)
 
     class Meta:
         verbose_name_plural = "Library Cards"

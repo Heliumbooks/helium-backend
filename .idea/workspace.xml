@@ -3,10 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="b9838dbf-fa0d-4abe-92b4-d0b40d6a290a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/helium_backend/orders/api.py" beforeDir="false" afterPath="$PROJECT_DIR$/helium_backend/orders/api.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/helium_backend/orders/api_urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/helium_backend/orders/api_urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/helium_backend/orders/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/helium_backend/orders/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/venv/bin/activate" beforeDir="false" afterPath="$PROJECT_DIR$/venv/bin/activate" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helium_backend/libraries/api.py" beforeDir="false" afterPath="$PROJECT_DIR$/helium_backend/libraries/api.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helium_backend/libraries/api_urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/helium_backend/libraries/api_urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helium_backend/libraries/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/helium_backend/libraries/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
