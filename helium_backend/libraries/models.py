@@ -1,6 +1,7 @@
 from django.db import models
 
 from helium_backend.locations.models import Address
+from helium_backend.users.models import User
 
 
 class Library(models.Model):
@@ -19,6 +20,7 @@ class Library(models.Model):
 class LibraryCard(models.Model):
     name = models.CharField(max_length=200, default='', null=True, blank=True)
     card_number = models.CharField(max_length=200, default='', null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING, null=True, blank=True)
     pin = models.CharField(max_length=4, default='', null=True, blank=True)
     balance = models.FloatField(default=0)
     active = models.BooleanField(default=True)
