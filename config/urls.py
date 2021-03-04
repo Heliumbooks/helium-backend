@@ -9,6 +9,7 @@ apipatterns = [
     path('api/v1/auth/', include('helium_backend.authentication.api_urls')),
     path('api/v1/libraries/', include('helium_backend.libraries.api_urls')),
     path('api/v1/orders/', include('helium_backend.orders.api_urls')),
+    path('api/v1/slack/', include('helium_backend.slack.api_urls')),
     path('api/v1/stripe/', include('helium_backend.stripe.api_urls')),
 ]
 
