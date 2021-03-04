@@ -28,7 +28,7 @@ class SlackChannel(models.Model):
     name = models.CharField(max_length=50)
     alt_id = models.CharField(max_length=50)
     bot_name = models.CharField(max_length=50, default='Channel Automator')
-    bot_image = models.TextField(default='https://stayfrontdesk.com/logo.png', blank=True)
+    bot_image = models.TextField(default='https://heliumbooks-webapp.s3.us-east-2.amazonaws.com/helium+primary+logo+(blue).png', blank=True)
 
     class Meta:
         verbose_name_plural = "Channels"

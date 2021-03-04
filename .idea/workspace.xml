@@ -2,14 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b9838dbf-fa0d-4abe-92b4-d0b40d6a290a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/helium_backend/slack/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/helium_backend/slack/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/helium_backend/slack/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/helium_backend/slack/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/helium_backend/slack/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/helium_backend/slack/tasks.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/settings/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/settings/base.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helium_backend/slack/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/helium_backend/slack/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

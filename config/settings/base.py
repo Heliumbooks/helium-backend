@@ -53,6 +53,7 @@ LOCAL_APPS = [
     'helium_backend.libraries.apps.LibrariesConfig',
     'helium_backend.locations.apps.LocationsConfig',
     'helium_backend.orders.apps.OrdersConfig',
+    'helium_backend.slack.apps.SlackConfig',
     'helium_backend.stripe.apps.StripeConfig',
     'helium_backend.users.apps.UsersConfig',
 ]
