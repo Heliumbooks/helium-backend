@@ -8,7 +8,7 @@ from helium_backend.users.models import User
 from helium_backend.customers.models import Customer
 from helium_backend.books.models import Book
 from helium_backend.locations.models import Address
-from helium_backend.libraries.models import Library
+from helium_backend.libraries.models import Library, LibraryCard
 
 
 class Status(Enum):
@@ -84,6 +84,7 @@ class BookOrder(models.Model):
     returned_time = models.DateTimeField(null=True, blank=True)
     pick_up_location = models.TextField(default='', null=True, blank=True)
     returned = models.BooleanField(default=False)
+    library_card = models.ForeignKey(LibraryCard, null=True, blank=True, on_delete=models.DO_NOTHING)
 
     class Meta:
         verbose_name_plural = "Book Orders"

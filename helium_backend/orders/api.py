@@ -13,7 +13,7 @@ from helium_backend.books.models import Book
 from helium_backend.books.models import Author
 from helium_backend.customers.models import Customer
 from helium_backend.locations.models import Address, State, City
-from helium_backend.libraries.models import Library
+from helium_backend.libraries.models import Library, LibraryCard
 
 from helium_backend.stripe.tasks import create_customer, create_payment_method
 from helium_backend.stripe.tasks import create_setup_intent
@@ -104,7 +104,7 @@ class OrderAddressSelection(APIView):
         """To Do: Write some code that calculates the longitude and latitude of the address using Google"""
 
         try:
-            address = Address.objects.filter(user=user).first()
+            address = Address.objects.filter(customer=user).first()
         except:
             address = Address.objects.create(
                 customer=user,
@@ -324,7 +324,7 @@ class PendingLibraryPickUpById(APIView):
             .values('id', 'title', 'author', 'status', 'pick_up_library__name',
                     'pick_up_library__address__street_address',
                     'pick_up_library__address__additional_street_address', 'pick_up_library__address__city__name',
-                    'pick_up_library__address__zip_code').order_by('pick_up_library__address__street_address')
+                    'pick_up_library__address__zip_code').order_by('id')
         order_data['books'] = book_orders
         return Response(order_data)
 
@@ -346,11 +346,14 @@ class MarkBookOrderLibraryPickUp(APIView):
     def patch(self, request, pk):
         user = request.user
         current_time = timezone.now()
+
+        library_card = LibraryCard.objects.filter(user=user).first()
         book_order = BookOrder.objects.filter(pk=pk).first()
         order = Order.objects.filter(pk=book_order.order.id).first()
         try:
             book_order.status = Status.awaiting_delivery.value
             book_order.library_pick_up_time = current_time
+            book_order.library_card = library_card
             book_order.save()
         except:
             return Response(status=status.HTTP_400_BAD_REQUEST)
@@ -380,3 +383,16 @@ class MarkLibraryOrderDroppedOff(APIView):
         except:
             return Response(status=status.HTTP_400_BAD_REQUEST)
         return Response(status=status.HTTP_200_OK)
+
+
+class PendingCustomerDropOff(APIView):
+    def get(self, request):
+        user = request.user
+        orders = Order.objects.filter(status=OrderStatus.picked_up_library.value)
+        if not user.is_admin:
+            orders = orders.filter(delivery_driver=user)
+        orders = orders.values('id', 'library_pick_up_time', 'delivery_driver__first_name', 'delivery_driver__last_name',
+                    'delivery_driver__full_name', 'drop_off_address__street_address', 'drop_off_address__city__name',
+                    'drop_off_address__zip_code', 'customer__full_name').order_by('library_pick_up_time')
+        return Response(orders)
+
