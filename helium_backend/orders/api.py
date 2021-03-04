@@ -324,7 +324,7 @@ class PendingLibraryPickUpById(APIView):
             .values('id', 'title', 'author', 'status', 'pick_up_library__name',
                     'pick_up_library__address__street_address',
                     'pick_up_library__address__additional_street_address', 'pick_up_library__address__city__name',
-                    'pick_up_library__address__zip_code').order_by('pick_up_library__address__street_address')
+                    'pick_up_library__address__zip_code').order_by('id')
         order_data['books'] = book_orders
         return Response(order_data)
 
@@ -347,10 +347,7 @@ class MarkBookOrderLibraryPickUp(APIView):
         user = request.user
         current_time = timezone.now()
 
-        if not request.data.get('library_card_id'):
-            return Response(status=status.HTTP_400_BAD_REQUEST)
-
-        library_card = LibraryCard.objects.filter(pk=request.data.get('library_card_id')).first()
+        library_card = LibraryCard.objects.filter(user=user).first()
         book_order = BookOrder.objects.filter(pk=pk).first()
         order = Order.objects.filter(pk=book_order.order.id).first()
         try:
