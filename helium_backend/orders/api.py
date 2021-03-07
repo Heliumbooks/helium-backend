@@ -18,6 +18,8 @@ from helium_backend.libraries.models import Library, LibraryCard
 from helium_backend.stripe.tasks import create_customer, create_payment_method
 from helium_backend.stripe.tasks import create_setup_intent
 
+from helium_backend.orders.tasks import send_pending_order_notification
+
 
 class AllOrderList(APIView):
     def get(self, request):
@@ -175,12 +177,10 @@ class CompleteOrderPlacement(APIView):
                 request.data.get('expirationYear'),
                 request.data.get('cvc')
             )
-            print(payment_method)
             helium_stripe_customer = create_customer(
                 request.data.get('email'),
                 payment_method.get('id')
             )
-            print(helium_stripe_customer)
             create_setup_intent(helium_stripe_customer)
         except:
             return Response(status=status.HTTP_400_BAD_REQUEST, data="Failed payment spot")
@@ -201,6 +201,11 @@ class CompleteOrderPlacement(APIView):
                 item.save()
         except:
             return Response(status=status.HTTP_400_BAD_REQUEST, data="didnt save to book orders")
+
+        try:
+            send_pending_order_notification(order.id)
+        except:
+            return Response(status=status.HTTP_400_BAD_REQUEST, data="couldn't send slack message")
 
         return Response(status=status.HTTP_200_OK)
 

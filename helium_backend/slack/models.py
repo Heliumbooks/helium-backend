@@ -39,6 +39,7 @@ class SlackChannel(models.Model):
             bot_name = self.bot_name
         if not bot_image:
             bot_image = self.bot_image
+        print(bot_name)
         self.account.send_message(self, message, bot_name, bot_image)
 
     def __str__(self):

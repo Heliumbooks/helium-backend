@@ -19,6 +19,7 @@ class Status(Enum):
     awaiting_delivery = "Awaiting Delivery"
     awaiting_customer_pick_up = "Awaiting Customer Pick Up"
     awaiting_library_return = "Awaiting Library Return"
+    renewal_requested = "Renewal Requested"
     delivered = "Delivered"
     completed = "Completed"
     denied = "Denied"
@@ -29,6 +30,7 @@ class Status(Enum):
 class OrderStatus(Enum):
     placed = "Placed"
     confirmed = "Confirmed"
+    delivered = "Delivered"
     picked_up_library = "Picked Up From Library"
     delivered_customer = "Delivered to Customer"
     picked_up_customer = "Picked Up From Customer"
@@ -41,7 +43,10 @@ class Order(models.Model):
     order_placed = models.DateTimeField(null=True, blank=True)
     drop_off_time = models.DateTimeField(null=True, blank=True)
     drop_off_location = models.TextField(default='', null=True, blank=True)
-    drop_off_address = models.ForeignKey(Address, on_delete=models.DO_NOTHING, null=True, blank=True)
+    drop_off_address = models.ForeignKey(Address, on_delete=models.DO_NOTHING, null=True, blank=True,
+                                         related_name='drop_off_address')
+    pick_up_address = models.ForeignKey(Address, on_delete=models.DO_NOTHING, null=True, blank=True,
+                                        related_name='pick_up_address')
     drop_off_deadline = models.DateTimeField(null=True, blank=True)
     delivery_driver = models.ForeignKey(User, on_delete=models.DO_NOTHING,
                                         related_name='delivery_driver', null=True, blank=True)
