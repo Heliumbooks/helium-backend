@@ -4,6 +4,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 
+from django.utils import timezone
+
 from helium_backend.users.models import User, UserPassword
 
 
@@ -31,13 +33,15 @@ class UserRegistration(APIView):
             return Response(status=status.HTTP_403_FORBIDDEN)
         if not request.data.get('password'):
             return Response(status=status.HTTP_403_FORBIDDEN)
+        current_date = timezone.now().date()
         try:
 
             user = User.objects.create_user(
                 email=request.data.get('email'),
                 password=request.data.get('password'),
                 first_name=request.data.get('first_name'),
-                last_name=request.data.get('last_name')
+                last_name=request.data.get('last_name'),
+                date_joined=current_date
             )
 
             UserPassword.objects.create(

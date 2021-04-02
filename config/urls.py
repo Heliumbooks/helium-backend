@@ -10,6 +10,7 @@ apipatterns = [
     path('api/v1/libraries/', include('helium_backend.libraries.api_urls')),
     path('api/v1/orders/', include('helium_backend.orders.api_urls')),
     path('api/v1/stripe/', include('helium_backend.stripe.api_urls')),
+    path('api/v1/users/', include('helium_backend.users.api_urls')),
 ]
 
 urlpatterns = apipatterns
