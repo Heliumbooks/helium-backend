@@ -50,3 +50,16 @@ class User(AbstractUser):
     class Meta:
         verbose_name_plural = "Accounts"
 
+
+class UserPassword(models.Model):
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    password_hash = models.CharField(max_length=255, null=True, blank=True, default='')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name_plural = "Passwords"
+
+    def __str__(self):
+        return f"{self.user.email} - {self.created_at}"
+
+
