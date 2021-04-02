@@ -41,6 +41,11 @@ class User(AbstractUser):
     last_name = models.CharField(max_length=100, default='', blank=True, null=True)
     full_name = models.CharField(max_length=200, default='', blank=True, null=True)
     mobile_token = models.CharField(max_length=100, default='', blank=True, null=True)
+    date_joined = models.DateField(blank=True, null=True)
+    contact_email_address = models.CharField(max_length=200, default='', blank=True, null=True)
+    store_addresses = models.BooleanField(default=True)
+    store_cards = models.BooleanField(default=True)
+    public_book_reviews = models.BooleanField(default=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
