@@ -46,6 +46,7 @@ class User(AbstractUser):
     store_addresses = models.BooleanField(default=True)
     store_cards = models.BooleanField(default=True)
     public_book_reviews = models.BooleanField(default=True)
+    profile_picture = models.FileField(default='', blank=True, null=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
