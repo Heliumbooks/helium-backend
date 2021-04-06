@@ -20,7 +20,8 @@ class UserById(APIView):
             "contact_email_address": retrieved_user.contact_email_address,
             "store_addresses": retrieved_user.store_addresses,
             "store_cards": retrieved_user.store_cards,
-            "public_book_reviews": retrieved_user.public_book_reviews
+            "public_book_reviews": retrieved_user.public_book_reviews,
+            "date_joined": retrieved_user.date_joined
         }
 
         return Response(response)
