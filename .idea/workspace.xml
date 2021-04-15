@@ -2,13 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b9838dbf-fa0d-4abe-92b4-d0b40d6a290a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/helium_backend/google/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/helium_backend/google/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/helium_backend/google/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/helium_backend/google/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/helium_backend/google/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/helium_backend/google/tasks.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/service-key.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/helium_backend/messaging/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/helium_backend/messaging/admin.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/helium_backend/messaging/apps.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/helium_backend/messaging/migrations/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/helium_backend/messaging/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/helium_backend/messaging/tasks.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/settings/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/settings/base.py" afterDir="false" />
     </list>
