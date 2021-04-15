@@ -64,6 +64,13 @@ class Order(models.Model):
     def __str__(self):
         return f"{self.customer.full_name} - {self.id}"
 
+    def get_message_dict(self):
+        data = {
+            "customer__first_name": self.customer.first_name,
+            "customer__last_name": self.customer.last_name,
+            "customer__email": self.customer.emails[0],
+        }
+
 
 class BookOrder(models.Model):
     order = models.ForeignKey(Order, on_delete=models.DO_NOTHING)
