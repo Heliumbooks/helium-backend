@@ -14,9 +14,11 @@ from helium_backend.books.models import Author
 from helium_backend.customers.models import Customer
 from helium_backend.locations.models import Address, State, City
 from helium_backend.libraries.models import Library, LibraryCard
+from helium_backend.google.models import GoogleClient
 
 from helium_backend.stripe.tasks import create_customer, create_payment_method
 from helium_backend.stripe.tasks import create_setup_intent
+from helium_backend.google.tasks import send_gmail_message
 
 
 class AllOrderList(APIView):
@@ -31,6 +33,7 @@ class OrderCreate(APIView):
     def post(self, request):
         current_time = timezone.now()
         user = request.user
+        gmail_client = GoogleClient.objects.get(pk=1)
 
         if len(request.data.get('requestedBooks')) > 0:
             customer, customer_created = Customer.objects.get_or_create(
@@ -70,6 +73,8 @@ class OrderCreate(APIView):
                 else:
                     return Response(status=status.HTTP_400_BAD_REQUEST)
 
+            message = "This is the test message"
+            send_gmail_message(1, "ctcb57@gmail.com", "Test message", message)
             return Response(status=status.HTTP_200_OK, data=order.id)
 
         else:
