@@ -34,7 +34,6 @@ class OrderCreate(APIView):
 
         if len(request.data.get('requestedBooks')) > 0:
             customer, customer_created = Customer.objects.get_or_create(
-                full_name=user.full_name,
                 first_name=user.first_name,
                 last_name=user.last_name,
                 user=user,
