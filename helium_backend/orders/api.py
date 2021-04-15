@@ -176,12 +176,10 @@ class CompleteOrderPlacement(APIView):
                 request.data.get('expirationYear'),
                 request.data.get('cvc')
             )
-            print(payment_method)
             helium_stripe_customer = create_customer(
                 request.data.get('email'),
                 payment_method.get('id')
             )
-            print(helium_stripe_customer)
             create_setup_intent(helium_stripe_customer)
         except:
             return Response(status=status.HTTP_400_BAD_REQUEST, data="Failed payment spot")
@@ -218,10 +216,13 @@ class PendingOrdersList(APIView):
 class BookOrdersByOrderId(APIView):
     def get(self, request, pk):
         data = {"order_id": pk}
+        order = Order.objects.filter(pk=pk).values('id', 'drop_off_address__street_address', 'drop_off_location'
+                                                           , 'drop_off_deadline')
         book_orders = BookOrder.objects.filter(order_id=pk).values('id', 'title', 'author', 'order_placed', 'status',
                                                                    'pick_up_library_id', 'due_date') \
             .order_by('id')
         data['books'] = book_orders
+        data['order'] = order[0]
         return Response(data)
 
     def patch(self, request, pk):
