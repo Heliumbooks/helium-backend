@@ -26,7 +26,7 @@ class AllOrderList(APIView):
 
 
 class OrderCreate(APIView):
-    permission_classes = (IsAuthenticated,)
+    # permission_classes = (IsAuthenticated,)
 
     def post(self, request):
         current_time = timezone.now()
@@ -34,7 +34,6 @@ class OrderCreate(APIView):
 
         if len(request.data.get('requestedBooks')) > 0:
             customer, customer_created = Customer.objects.get_or_create(
-                full_name=user.full_name,
                 first_name=user.first_name,
                 last_name=user.last_name,
                 user=user,
@@ -65,7 +64,8 @@ class OrderCreate(APIView):
                         book=book,
                         title=item.get('title'),
                         author=item.get('author'),
-                        status="Incomplete"
+                        status="Incomplete",
+                        order_placed=current_time
                     )
                 else:
                     return Response(status=status.HTTP_400_BAD_REQUEST)
@@ -77,7 +77,7 @@ class OrderCreate(APIView):
 
 
 class OrderAddressSelection(APIView):
-    permission_classes = (IsAuthenticated,)
+    # permission_classes = (IsAuthenticated,)
 
     def patch(self, request, pk):
         user = request.user
@@ -119,7 +119,7 @@ class OrderAddressSelection(APIView):
 
         try:
             order.drop_off_location = request.data.get('dropOffLocation')
-            order.address = address
+            order.drop_off_address = address
             order.save()
             return Response(status=status.HTTP_200_OK, data=order.id)
         except:
@@ -127,7 +127,7 @@ class OrderAddressSelection(APIView):
 
 
 class OrderPickUpTimeSelection(APIView):
-    permission_classes = (IsAuthenticated,)
+    # permission_classes = (IsAuthenticated,)
 
     def patch(self, request, pk):
         try:
@@ -138,7 +138,7 @@ class OrderPickUpTimeSelection(APIView):
         current_time = timezone.now()
         cutoff_date_time = current_time.replace(hour=16, minute=0, second=0)
 
-        if not request.data.get('pickUpTime') and not request.data.get('pickUpDate'):
+        if not request.data.get('pickUpDateTime') and not request.data.get('pickUpDate'):
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
         if request.data.get('pickUpDate') == current_time.date() \
@@ -158,7 +158,7 @@ class OrderPickUpTimeSelection(APIView):
 
 
 class CompleteOrderPlacement(APIView):
-    permission_classes = (IsAuthenticated,)
+    # permission_classes = (IsAuthenticated,)
 
     def patch(self, request, pk):
         current_time = timezone.now()
@@ -175,12 +175,10 @@ class CompleteOrderPlacement(APIView):
                 request.data.get('expirationYear'),
                 request.data.get('cvc')
             )
-            print(payment_method)
             helium_stripe_customer = create_customer(
                 request.data.get('email'),
                 payment_method.get('id')
             )
-            print(helium_stripe_customer)
             create_setup_intent(helium_stripe_customer)
         except:
             return Response(status=status.HTTP_400_BAD_REQUEST, data="Failed payment spot")
@@ -217,10 +215,13 @@ class PendingOrdersList(APIView):
 class BookOrdersByOrderId(APIView):
     def get(self, request, pk):
         data = {"order_id": pk}
+        order = Order.objects.filter(pk=pk).values('id', 'drop_off_address__street_address', 'drop_off_location'
+                                                           , 'drop_off_deadline')
         book_orders = BookOrder.objects.filter(order_id=pk).values('id', 'title', 'author', 'order_placed', 'status',
                                                                    'pick_up_library_id', 'due_date') \
             .order_by('id')
         data['books'] = book_orders
+        data['order'] = order[0]
         return Response(data)
 
     def patch(self, request, pk):
