@@ -90,4 +90,4 @@ class BookOrder(models.Model):
         verbose_name_plural = "Book Orders"
 
     def __str__(self):
-        return f"{self.order.customer.full_name} - {self.book.title} - {self.order_placed.date()}"
+        return f"{self.order.customer.full_name} - {self.book.title} - {self.id}"

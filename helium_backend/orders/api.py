@@ -26,7 +26,7 @@ class AllOrderList(APIView):
 
 
 class OrderCreate(APIView):
-    permission_classes = (IsAuthenticated,)
+    # permission_classes = (IsAuthenticated,)
 
     def post(self, request):
         current_time = timezone.now()
@@ -65,7 +65,8 @@ class OrderCreate(APIView):
                         book=book,
                         title=item.get('title'),
                         author=item.get('author'),
-                        status="Incomplete"
+                        status="Incomplete",
+                        order_placed=current_time
                     )
                 else:
                     return Response(status=status.HTTP_400_BAD_REQUEST)
@@ -77,7 +78,7 @@ class OrderCreate(APIView):
 
 
 class OrderAddressSelection(APIView):
-    permission_classes = (IsAuthenticated,)
+    # permission_classes = (IsAuthenticated,)
 
     def patch(self, request, pk):
         user = request.user
@@ -119,7 +120,7 @@ class OrderAddressSelection(APIView):
 
         try:
             order.drop_off_location = request.data.get('dropOffLocation')
-            order.address = address
+            order.drop_off_address = address
             order.save()
             return Response(status=status.HTTP_200_OK, data=order.id)
         except:
@@ -127,7 +128,7 @@ class OrderAddressSelection(APIView):
 
 
 class OrderPickUpTimeSelection(APIView):
-    permission_classes = (IsAuthenticated,)
+    # permission_classes = (IsAuthenticated,)
 
     def patch(self, request, pk):
         try:
@@ -138,7 +139,7 @@ class OrderPickUpTimeSelection(APIView):
         current_time = timezone.now()
         cutoff_date_time = current_time.replace(hour=16, minute=0, second=0)
 
-        if not request.data.get('pickUpTime') and not request.data.get('pickUpDate'):
+        if not request.data.get('pickUpDateTime') and not request.data.get('pickUpDate'):
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
         if request.data.get('pickUpDate') == current_time.date() \
@@ -158,7 +159,7 @@ class OrderPickUpTimeSelection(APIView):
 
 
 class CompleteOrderPlacement(APIView):
-    permission_classes = (IsAuthenticated,)
+    # permission_classes = (IsAuthenticated,)
 
     def patch(self, request, pk):
         current_time = timezone.now()
