@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "design-catalog",
+  "private_key_id": "e616d37076c1499a925297054d1c676a4a899c9c",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCxrQZIuHQ6YN6b\n4TDL/KkQZzMw+eVpq89g+gdz+/Fa+G7jaHDlYUcRtd/0BKUFKsJobzi1misuSGSA\neQWx7KgqQvjd5GB0vK7zKKczHxZzVA1Vn0OZBMUs/3L5KOmOGJOvuZVZur/CYMaU\nyf0W2CgA7ClnV2CsYgRuUhf+b93D4NmVm5/SGC/Xtza9/Z+UrpzhKyD5Q44et+j9\nFzquvJn5ru0GwMK1DaeQB7QIaaz8rXd9c4+aGo0HTHP0ET3F96i8/ZkOOuXPS1B4\npUuwGTMJZKTFYP1LxcqAIws6Vtdw883kmqXe970MaRUKJAtmVqyJNu8MgxRS34bm\nlStv0VlzAgMBAAECggEAQVsfA6LuBgdZ+0bjdzWSTtlXSD2z+KHdX5O5KB3V0xut\nVnM1i/qzdL1NCuqmdPccmePHnW1/UsAIUAW0ZZVi6mDGQIDgRjCdvg4HKtPVo0iY\nuxUhfWj2yq2QcjxtZPp/YNVILcB3Bx4oDdUbBssuM+Cq/jty8RYBAT+rWcl2brVp\nii5/Mscz3KmjwDytQ3lFpiilakmCmc6nohjjYTGt/g94MIq4E/mc/8ig5v5ASaHw\nCGOVOBWfShmbhqzBXH78z4//5v5DzDG9om8l6FxYhLX7YYaLWp0eNz2brt4xLByN\npCA0a3ffcG+r95dL3P/8jf7pyi78sksx7vgTuEnncQKBgQD1Abr5C5M6jEUWlLfq\ndLvYDchEbEEQwDAhT3qA5VMJSMECRMIontTr9SG/EQLWXVvtcbBovUkzJwgDflHv\n7MWLagPH7c9Y2Z5bS/GZ/NuznNtSeld5A/OXiJK6tl+phKD4jubbOR33bMpf3XRw\n8CbKVtHoSnjnRM/HTIOCwvPMyQKBgQC5peXs3C2z+ghieDY4H4dKFUEz6qxFy4OH\nD+5UhSEmamw7MDwUySOkpFJR3kZXG1Qc2A+YBo2rkBT5ktoTNLLhlagV7eb4ebXm\np/ksOHJBfdHBP7/npNSqIh4CSduh53Z8KvCft6f6nFOoHCjUJz6eCBfIokecLCsf\nZaFyo+geWwKBgQDdehn1xZPqyiAuIHP8+ldQIG1YBO/wX3tisUERQbyFWQI4tcU6\nCRJ61lYSLSN+elh+VVZd6DZCilcBKXCSTVvqAgS292+HZvlymD0nsV89h17vuO5X\n082gvvG83N2vFNiauDtSEtjW8L4kWMFI0p6OLFuF+8Q9c4PMKot7ahYPmQKBgC6z\n/Ia80UaQpSFYipNN4zQQ6slLxTD9xMXqjRN4NmG6riWpucOk4jGeIRN1bo6lUmC7\nPhkJtQQvCAfNGM1yGXpEsvdpVQy3WbqAEWA9hwjQxT7vcbCtt85hLNl4iSdO2nDc\nQJJ9mmWihC0rgF32zXrmIE2Z/ZfdSK/qWlZDw7Y3AoGBAKpl2WvSWoq856FyqM89\nhXi4L20mPBevkRDU2Teh2Krg36IELTEZku9KF/7rjCMPWKrSK0AmotEGEZka4h+6\nuywwg8mYKV+LN5GHAUbHD8UnapD7HhrNBliYJABVT4oY2dHTccv+EpfEfCPvVbSL\nPdgsuCIbc1MgBSJP3Kq/fvRZ\n-----END PRIVATE KEY-----\n",
+  "client_email": "helium-books@design-catalog.iam.gserviceaccount.com",
+  "client_id": "101320219713309757506",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/helium-books%40design-catalog.iam.gserviceaccount.com"
+}
