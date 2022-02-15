@@ -32,6 +32,11 @@ class Book(models.Model):
                              choices=[(genre.value, genre.name.title()) for genre in Genre])
     pages = models.IntegerField(default=0)
     requests = models.IntegerField(default=0)
+    isbn = models.CharField(max_length=100, default='', null=True, blank=True)
+    lexile_score = models.CharField(max_length=50, default='', null=True, blank=True)
+    synopsis = models.TextField(default='', null=True, blank=True)
+    published_date = models.DateTimeField(null=True, blank=True)
+    average_book_rating = models.FloatField(default=0)
 
     class Meta:
         verbose_name_plural = "Books"
