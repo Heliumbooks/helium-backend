@@ -31,6 +31,7 @@ def root(*dirs):
 SECRET_KEY = get_env_variable('SECRET_KEY')
 FIELD_ENCRYPTION_KEY = get_env_variable('FIELD_ENCRYPTION_KEY')
 
+
 DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -66,12 +67,14 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django_otp.middleware.OTPMiddleware',
+    # 'django_otp.middleware.OTPMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
 CORS_ORIGIN_WHITELIST = ['http://localhost:3000', "https://helium-frontend.herokuapp.com"]
+
+ALLOWED_HOSTS = ['*']
 
 ROOT_URLCONF = 'config.urls'
 
