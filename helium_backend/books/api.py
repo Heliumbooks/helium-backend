@@ -3,7 +3,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 # from olclient.openlibrary import OpenLibrary
-import pandas as pd
+# import pandas as pd
 import requests
 import time
 from datetime import datetime
@@ -12,27 +12,27 @@ import pytz
 from helium_backend.books.models import Book, Author, Subject, IsbnNumber
 
 
-class DatabaseLoad(APIView):
+# class DatabaseLoad(APIView):
 
-    def post(self, request):
-        file_path = '/Users/charlesclark/Documents/development/helium/Helium_Books_Database.csv'
+#     def post(self, request):
+#         file_path = '/Users/charlesclark/Documents/development/helium/Helium_Books_Database.csv'
 
-        df = pd.read_csv(file_path, index_col=False)
+#         df = pd.read_csv(file_path, index_col=False)
 
-        book_data = df[["Title", "Author"]]
-        for index, row in book_data.iterrows():
-            book_title = row['Title']
-            book_author = row['Author']
-            author, author_created = Author.objects.get_or_create(
-                full_name=book_author
-            )
+#         book_data = df[["Title", "Author"]]
+#         for index, row in book_data.iterrows():
+#             book_title = row['Title']
+#             book_author = row['Author']
+#             author, author_created = Author.objects.get_or_create(
+#                 full_name=book_author
+#             )
 
-            book, book_created = Book.objects.get_or_create(
-                title=book_title,
-                author=author
-            )
-        data = {"status": "complete"}
-        return Response(status=status.HTTP_200_OK, data=data)
+#             book, book_created = Book.objects.get_or_create(
+#                 title=book_title,
+#                 author=author
+#             )
+#         data = {"status": "complete"}
+#         return Response(status=status.HTTP_200_OK, data=data)
 
 class DatabaseUpdate(APIView):
 
