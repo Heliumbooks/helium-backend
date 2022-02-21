@@ -40,7 +40,7 @@ class DatabaseUpdate(APIView):
         api_base_url = "https://openlibrary.org/search.json?"
         books = Book.objects.filter(processed_from_open_lib=False).values('id', 'title', 'author__full_name').order_by('title')
         count = 0
-        for item in books[:20]:
+        for item in books:
             formatted_author = item.get('author__full_name').replace(" ", "+")
             formatted_title = item.get('title').replace(" ", "+")
             try:
