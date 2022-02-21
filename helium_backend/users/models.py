@@ -41,6 +41,8 @@ class User(AbstractUser):
     last_name = models.CharField(max_length=100, default='', blank=True, null=True)
     full_name = models.CharField(max_length=200, default='', blank=True, null=True)
     mobile_token = models.CharField(max_length=100, default='', blank=True, null=True)
+    last_login = models.DateTimeField(auto_now=True, null=True, blank=True)
+    login_count = models.IntegerField(default=0)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
