@@ -2,7 +2,7 @@ from os import stat
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from olclient.openlibrary import OpenLibrary
+# from olclient.openlibrary import OpenLibrary
 import pandas as pd
 import requests
 import time
@@ -94,27 +94,27 @@ class DatabaseUpdate(APIView):
         data = {"status": "complete"}
         return Response(status=status.HTTP_200_OK, data=data)
 
-class UpdateBookInfo(APIView):
+# class UpdateBookInfo(APIView):
 
-    def post(self, request):
-        client = OpenLibrary()
-        books = Book.objects.all().values('id', 'title', 'book_ol_id', 'author__id').order_by('title')
-        for item in books[:20]:
-            try:
-                book = Book.objects.get(pk=item.get('id'))
-                work = client.Work.get(f"{item.get('book_ol_id')}")
-                book.synopsis = work.description 
-                if work.authors:
-                    for author in work.authors:
-                        author_ol_id = author.get('author').get('key').split("/")[-1]
-                        ol_author = client.Author.get(author_ol_id)
-                        if ol_author.bio:
-                            author = Author.objects.get(pk=item.get('author__id'))
-                            author.information = ol_author.bio
-                            author.save()
-                book.save()
-            except Exception as e:
-                print(e)
+#     def post(self, request):
+#         client = OpenLibrary()
+#         books = Book.objects.all().values('id', 'title', 'book_ol_id', 'author__id').order_by('title')
+#         for item in books[:20]:
+#             try:
+#                 book = Book.objects.get(pk=item.get('id'))
+#                 work = client.Work.get(f"{item.get('book_ol_id')}")
+#                 book.synopsis = work.description 
+#                 if work.authors:
+#                     for author in work.authors:
+#                         author_ol_id = author.get('author').get('key').split("/")[-1]
+#                         ol_author = client.Author.get(author_ol_id)
+#                         if ol_author.bio:
+#                             author = Author.objects.get(pk=item.get('author__id'))
+#                             author.information = ol_author.bio
+#                             author.save()
+#                 book.save()
+#             except Exception as e:
+#                 print(e)
         
-        data = {"status": "complete"}
-        return Response(status=status.HTTP_200_OK, data=data)
+#         data = {"status": "complete"}
+#         return Response(status=status.HTTP_200_OK, data=data)
